@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      # OpenAI Configuration
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AI_MODEL=${AI_MODEL:-gpt-4}
+
+      # Hugging Face Configuration
+      - HF_API_KEY=${HF_API_KEY}
+      - HF_MODEL=${HF_MODEL:-TinyLlama/TinyLlama-1.1B-Chat-v1.0}
+
+      # AI Provider Selection
+      - AI_PROVIDER=${AI_PROVIDER:-openai}
+
+      # Application Settings
+      - SECRET_KEY=${SECRET_KEY}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:3000}
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
