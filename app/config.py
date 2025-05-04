@@ -12,10 +12,18 @@ class Settings:
 
     # Hugging Face settings
     HF_API_KEY = os.getenv("HF_API_KEY", "")
+
+    # Use TinyLlama by default to avoid memory issues
+    # TinyLlama is only 1.1B parameters and works on most hardware
+    # It's specifically designed for conversation and performs well on limited hardware
+    # Users can override this with the HF_MODEL environment variable
     HF_MODEL = os.getenv("HF_MODEL", "TinyLlama/TinyLlama-1.1B-Chat-v1.0")
 
     # AI Provider toggle
     AI_PROVIDER = os.getenv("AI_PROVIDER", "openai")  # Options: "openai" or "huggingface"
+
+    # OpenAI Assistants API toggle
+    USE_ASSISTANTS_API = os.getenv("USE_ASSISTANTS_API", "true").lower() == "true"
 
     # Security settings
     SECRET_KEY = os.getenv("SECRET_KEY", "")
@@ -33,25 +41,23 @@ class Settings:
 
     # AI settings
     MAX_HISTORY_LENGTH = 10  # number of messages to keep in history
-    SYSTEM_PROMPT = """You are a medical assistant interviewing a patient on behalf of a doctor.
-Your task is to gather essential information by asking exactly 5 questions, one at a time.
-Wait for the patient to respond to each question before asking the next one.
-Ask clear, concise questions focused on their symptoms, medical history, and current concerns.
-Track how many questions you've asked and inform the patient of your progress.
-After receiving answers to all 5 questions, provide a comprehensive summary for the doctor that includes:
+    SYSTEM_PROMPT = """You are a medical assistant interviewing a patient.
+Focus on symptoms, medical history, and current concerns.
+Track question progress and inform the patient.
+After all 5 questions, summarize for the doctor:
 1. Chief complaint and symptoms
 2. Relevant medical history
 3. Current medications
 4. Symptom duration and severity
 5. Impact on daily activities
-Be professional, empathetic, and focused on gathering medically relevant information.
+Be professional, empathetic, and concise.
 
-Don't give all the questions in a single response, your response will be directly communicated with patient and you will be directly connected with patient.
-so, ask a question wait for the response and then ask another. Be the character in the roleplay.
+Your messages should not exceed 15 words. Summary can be upto 75 words.
+Wait for patient response before asking the next question.
 
-Ask one question at a time and wait for the response. Once you recieve the response, ask the next question.
+After all the questions are done just return the summary to the patient don't add any advices.
 
-You are supprosed to be a medical assistant, not a scriptwriter.
+You are directly communicating with the patient.
 """
 
 # Create a settings instance

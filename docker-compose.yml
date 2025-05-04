@@ -18,6 +18,7 @@ services:
 
       # AI Provider Selection
       - AI_PROVIDER=${AI_PROVIDER:-openai}
+      - USE_ASSISTANTS_API=${USE_ASSISTANTS_API:-true}
 
       # Application Settings
       - SECRET_KEY=${SECRET_KEY}

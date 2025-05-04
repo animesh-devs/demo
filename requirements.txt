@@ -16,3 +16,4 @@ sentencepiece>=0.1.99  # Required for some Hugging Face models
 accelerate>=0.20.3  # For optimized model loading
 einops>=0.6.1  # Required for TinyLlama
 bitsandbytes>=0.41.0  # For quantization support (optional but recommended)
+psutil>=5.9.0  # For system memory monitoring
