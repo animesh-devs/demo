@@ -9,7 +9,7 @@ import platform
 import psutil  # For checking system memory
 
 # Import OpenAI with async support
-from openai import AsyncOpenAI
+from openai import AsyncOpenAI  # This is available in OpenAI SDK v1.0.0+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -48,7 +48,7 @@ class AIService:
         self.assistant_id = None  # Will store the assistant ID once created
         self.hf_conversation_states = {}  # Store conversation states for Hugging Face
 
-        # Initialize OpenAI client
+        # Initialize OpenAI client with the new SDK v1.0.0+ format
         self.openai_client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
 
         # Initialize the assistant asynchronously
@@ -431,7 +431,7 @@ Additional instructions:
 5. Be professional, empathetic, and concise.
 """
 
-            # Create the assistant using the current API structure
+            # Create the assistant using the OpenAI SDK v1.0.0+ API structure
             assistant = await self.openai_client.beta.assistants.create(
                 name="Medical Assistant",
                 instructions=enhanced_instructions,

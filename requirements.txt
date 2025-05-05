@@ -1,7 +1,7 @@
 fastapi==0.104.1
 uvicorn==0.23.2
 websockets==11.0.3
-openai==0.28.0  # Using older version for compatibility with the code
+openai>=1.0.0  # Updated to use AsyncOpenAI client
 python-dotenv==1.0.0
 pydantic==2.4.2  # Specific version to avoid conflicts
 # pydantic-settings removed as we're not using it anymore
