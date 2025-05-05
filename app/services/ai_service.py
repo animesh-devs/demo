@@ -715,20 +715,6 @@ Additional instructions:
                 if client_id and client_id in self.client_contexts:
                     system_content = f"{system_content}\n\nContext: {self.client_contexts[client_id]}"
 
-                # Add enhanced instructions for the 5-question format
-                system_content += """
-                    Additional instructions:
-                    1. Ask the patient 5 questions one at a time.
-                    2. Wait for the patient's response after each question.
-                    3. After the 5th question, provide a comprehensive summary of the patient's condition.
-                    4. The summary should include:
-                    - Chief complaint and symptoms
-                    - Relevant medical history
-                    - Current medications
-                    - Symptom duration and severity
-                    - Impact on daily activities
-                    5. Be professional, empathetic, and concise.
-                    """
 
                 conversation_state.append({"role": "system", "content": system_content})
 

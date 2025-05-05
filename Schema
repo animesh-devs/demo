@@ -1,0 +1,141 @@
+// Entity Structure for Doctor-Patient Chat Application
+
+// 1. Doctor Entity
+/*
+{
+  id: string, // primary key
+  name: string,
+  speciality: string,
+  email: string,
+  phone: string,
+  imageLink: string,
+  createdAt: timestamp,
+  updatedAt: timestamp
+}
+*/
+
+// 2. Patient Entity
+/*
+{
+  id: string, // primary key
+  name: string,
+  age: number,
+  gender: string,
+  email: string,
+  phone: string,
+  address: string,
+  createdAt: timestamp,
+  updatedAt: timestamp
+}
+*/
+
+// 3. Doctor-Patient Mapping Entity
+/*
+{
+  id: string, // primary key
+  doctorId: string, // foreign key to Doctor.id
+  patientId: string, // foreign key to Patient.id
+  createdAt: timestamp
+}
+*/
+
+// 4. Chat Entity
+/*
+{
+  id: string, // primary key
+  doctorId: string, // foreign key to Doctor.id
+  patientId: string, // foreign key to Patient.id
+  isActive: boolean,
+  createdAt: timestamp,
+  updatedAt: timestamp
+}
+*/
+
+// 5. Message Entity
+/*
+{
+  id: string, // primary key
+  chatId: string, // foreign key to Chat.id
+  senderId: string,
+  receiverId: string,
+  message: string,
+  messageType: string, // "text", "audio", "file"
+  fileDetails: {
+    fileName: string,
+    size: string,
+    link: string
+  }, // null for text messages
+  timestamp: timestamp,
+  isRead: boolean,
+  createdAt: timestamp
+}
+*/
+
+// 6. Case History Entity
+/*
+{
+  id: string, // primary key
+  patientId: string, // foreign key to Patient.id
+  summary: string,
+  createdAt: timestamp,
+  updatedAt: timestamp
+}
+*/
+
+// 7. Document Entity
+/*
+{
+  id: string, // primary key
+  caseHistoryId: string, // foreign key to CaseHistory.id
+  fileName: string,
+  size: string,
+  link: string,
+  uploadedBy: string, // "doctor" or "patient"
+  uploadTimestamp: timestamp,
+  createdAt: timestamp
+}
+*/
+
+// 8. AI Session Entity
+/*
+{
+  id: string, // primary key
+  chatId: string, // foreign key to Chat.id
+  startTimestamp: timestamp,
+  endTimestamp: timestamp,
+  createdAt: timestamp
+}
+*/
+
+// 9. AI Message Entity
+/*
+{
+  id: string, // primary key
+  sessionId: string, // foreign key to AISession.id
+  message: string,
+  response: string,
+  timestamp: timestamp,
+  createdAt: timestamp
+}
+*/
+
+// 10. Suggestion Entity
+/*
+{
+  id: string, // primary key
+  problemName: string,
+  description: string,
+  createdAt: timestamp
+}
+*/
+
+// 11. Doctor Suggestion Mapping
+/*
+{
+  id: string, // primary key
+  doctorId: string, // foreign key to Doctor.id
+  suggestionId: string, // foreign key to Suggestion.id
+  confidence: number,
+  createdAt: timestamp
+}
+*/

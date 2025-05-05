@@ -1,0 +1,263 @@
+// API Contracts for Doctor-Patient Chat Application
+
+/**
+ * 1. API to get all doctors for a patient
+ *
+ * Endpoint: GET /api/doctors
+ *
+ * Request:
+ * {
+ *   "patientId": "string"
+ * }
+ *
+ * Response:
+ * {
+ *   "doctors": [
+ *     {
+ *       "doctorId": "string",
+ *       "name": "string",
+ *       "speciality": "string",
+ *       "imageLink": "string",
+ *       "chatId": "string",
+ *       "isActiveChat": boolean
+ *     }
+ *   ]
+ * }
+ */
+
+/**
+ * 2. Get case history for patient
+ *
+ * Endpoint: GET /api/patients/{patientId}/case-history
+ *
+ * Request:
+ * {
+ *   "patientId": "string"
+ * }
+ *
+ * Response:
+ * {
+ *   "summary": "string",
+ *   "documents": [
+ *     {
+ *       "fileName": "string",
+ *       "size": "string",
+ *       "link": "string"
+ *     }
+ *   ]
+ * }
+ */
+
+/**
+ * 3. Get chat history by session_id in chronological order
+ *
+ * Endpoint: GET /api/chats/{chatId}/messages
+ *
+ * Request:
+ * {
+ *   "chatId": "string"
+ * }
+ *
+ * Response:
+ * {
+ *   "messages": [
+ *     {
+ *       "messageId": "string",
+ *       "senderId": "string",
+ *       "receiverId": "string",
+ *       "message": "string",
+ *       "messageType": "string", // "text", "audio", "file"
+ *       "fileDetails": {
+ *         "fileName": "string",
+ *         "size": "string",
+ *         "link": "string"
+ *       }, // null for text messages
+ *       "timestamp": "string",
+ *       "isRead": boolean
+ *     }
+ *   ]
+ * }
+ */
+
+/**
+ * 4. GetSuggestions API to return top 5 suggested problems
+ *
+ * Endpoint: GET /api/suggestions
+ *
+ * Request:
+ * {
+ *   "doctorId": "string",
+ * }
+ *
+ * Response:
+ * {
+ *   "suggestions": [ //for now just have a list of hardcoded text
+ *     {
+ *       "description": "string", //list of description
+ *     }
+ *   ]
+ * }
+ */
+
+/**
+ * 5. WebSocket API to communicate with AI
+ *
+ * WebSocket Connection URL: /ws/ai-assistant/{sessionId}
+ *
+ * Request:
+ * {
+ *   "sessionId": "string",
+ *   "message": "string",
+ *   "messageType": "string", // "text", "file"
+ *   "fileData": {
+ *     "fileName": "string",
+ *     "size": "string",
+ *     "data": "string" // base64 encoded for binary data
+ *   } // null for text messages
+ * }
+ *
+ * Response:
+ * {
+ *   "messageId": "string",
+ *   "response": "string",
+ *   "timestamp": "string"
+ * }
+ */
+
+/**
+ * 6. Send message API from both doctor and patient
+ *
+ * Endpoint: POST /api/messages
+ *
+ * Request:
+ * {
+ *   "senderId": "string",
+ *   "receiverId": "string",
+ *   "chatId": "string",
+ *   "message": "string",
+ *   "messageType": "string", // "text", "audio", "file"
+ *   "fileData": {
+ *     "fileName": "string",
+ *     "size": "string",
+ *     "data": "string" // base64 encoded for binary data
+ *   } // null for text messages
+ * }
+ *
+ * Response:
+ * {
+ *   "messageId": "string",
+ *   "timestamp": "string",
+ *   "status": "string" // "sent", "delivered", "read"
+ * }
+ */
+
+/**
+ * 7. GetPatients API for doctors
+ *
+ * Endpoint: GET /api/doctors/{doctorId}/patients
+ *
+ * Request:
+ * {
+ *   "doctorId": "string"
+ * }
+ *
+ * Response:
+ * {
+ *   "patients": [
+ *     {
+ *       "patientId": "string",
+ *       "name": "string",
+ *       "age": number,
+ *       "gender": "string",
+ *       "chatId": "string",
+ *       "isActiveChat": boolean,
+ *       "lastMessage": "string"
+ *     }
+ *   ]
+ * }
+ */
+
+/**
+ * 8. POST API to map doctor to patients n:n mapping
+ *
+ * Endpoint: POST /api/doctor-patient-mappings
+ *
+ * Request:
+ * {
+ *   "doctorId": "string",
+ *   "patientId": "string"
+ * }
+ *
+ * Response:
+ * {
+ *   "mappingId": "string",
+ *   "status": "string" // "success", "failed"
+ * }
+ */
+
+/**
+ * 9. POST API to save patient's case history
+ *
+ * Endpoint: POST /api/patients/{patientId}/case-history
+ *
+ * Request:
+ * {
+ *   "patientId": "string",
+ *   "summary": "string",
+ *   "documents": [
+ *     {
+ *       "fileName": "string",
+ *       "size": "string",
+ *       "data": "string" // base64 encoded
+ *     }
+ *   ]
+ * }
+ *
+ * Response:
+ * {
+ *   "caseHistoryId": "string",
+ *   "status": "string" // "success", "failed"
+ * }
+ */
+
+/**
+ * 10. Get reports API at the patient level
+ *
+ * Endpoint: GET /api/patients/{patientId}/reports
+ *
+ * Request:
+ * {
+ *   "patientId": "string"
+ * }
+ *
+ * Response:
+ * {
+ *   "reports": [
+ *     {
+ *       "fileName": "string",
+ *       "size": "string",
+ *       "link": "string",
+ *       "uploadedBy": "string", // "doctor" or "patient"
+ *       "uploadTimestamp": "string"
+ *     }
+ *   ]
+ * }
+ */
+
+/**
+ * 11. Bulk update message read status
+ *
+ * Endpoint: PUT /api/messages/read-status
+ *
+ * Request:
+ * {
+ *   "messageIds": ["string", "string", ...],
+ *   "isRead": boolean
+ * }
+ *
+ * Response:
+ * {
+ *   "updatedCount": number,
+ *   "status": "string" // "success", "partial", "failed"
+ * }
+ */
